@@ -1,0 +1,3 @@
+# DG Mobi Magic System (Streamlit) — único pacote necessário.
+# pandas já vem junto como dependência do próprio streamlit.
+streamlit>=1.36

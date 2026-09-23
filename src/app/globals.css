@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-ink-950: #06080a;
+  --color-ink-900: #0a0d10;
+  --color-ink-850: #0e1216;
+  --color-ink-800: #13181d;
+  --color-ink-700: #1b2229;
+  --color-ink-600: #26303a;
+
+  --color-mint-300: #6ee7b7;
+  --color-mint-400: #34d399;
+  --color-mint-500: #10b981;
+  --color-mint-600: #059669;
+
+  --color-gold-400: #fbbf24;
+  --color-blaze-400: #fb7185;
+  --color-azure-400: #38bdf8;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-grow-bar: grow-bar 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes grow-bar {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+    50% { opacity: 0.75; box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+  @keyframes float {
+    50% { transform: translateY(-7px); }
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink-950);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.28);
+  color: #ecfdf5;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #232b33;
+  border-radius: 8px;
+  border: 2px solid #06080a;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2f3a45;
+}
+
+/* ── Componentes de superfície ─────────────────────────── */
+.panel {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+}
+
+.panel-hover {
+  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+}
+.panel-hover:hover {
+  border-color: rgba(52, 211, 153, 0.22);
+  transform: translateY(-2px);
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  color: #e7edf2;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.field::placeholder { color: #55616c; }
+.field:focus {
+  border-color: rgba(52, 211, 153, 0.5);
+  background: rgba(52, 211, 153, 0.05);
+}
+select.field option {
+  background: #10151a;
+  color: #e7edf2;
+}
+
+.label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7883;
+  margin-bottom: 0.3rem;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(52, 211, 153, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 211, 153, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+}
+
+/* ── Impressão A4 (propostas e contratos) ──────────────── */
+@media print {
+  html { color-scheme: light; }
+  body { background: #fff !important; }
+  .no-print { display: none !important; }
+  .print-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    border: none !important;
+  }
+  .print-break { break-after: page; }
+}
+@page {
+  size: A4;
+  margin: 0;
+}

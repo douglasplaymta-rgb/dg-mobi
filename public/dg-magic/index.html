@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a1e5e" />
+  <title>DG Mobi Magic · Acesso ao Sistema</title>
+  <meta name="description" content="Plataforma corporativa DG Mobi Magic — turismo e entretenimento em Fortaleza/CE." />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ╔══════════════════════════════════════════════════════════╗
+       ║  TELA 1 — LOGIN                                            ║
+       ╚══════════════════════════════════════════════════════════╝ -->
+  <main id="login-screen" class="screen login-screen">
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="bg-scrim" aria-hidden="true"></div>
+
+    <section class="login-card glass" aria-labelledby="login-title">
+      <!-- Logo -->
+      <header class="brand">
+        <img src="assets/logo.png" alt="DG Mobi Magic" class="brand-logo"
+             onerror="this.style.display='none';document.getElementById('brand-fallback').style.display='flex'" />
+        <div id="brand-fallback" class="brand-fallback" style="display:none">
+          <span class="bf-dg">DG</span><span class="bf-magic">MobiMagic</span>
+        </div>
+        <p class="brand-tagline">A arte de transformar caminhos em momentos mágicos</p>
+      </header>
+
+      <!-- Etapa 1: credenciais -->
+      <form id="login-form" class="form" novalidate>
+        <h1 id="login-title" class="form-title">Acesso ao Sistema</h1>
+        <p class="form-sub">Entre com suas credenciais corporativas</p>
+
+        <label class="field">
+          <span class="field-label">E-mail Corporativo</span>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v.5l8 5 8-5V6H4Zm16 3.2-7.4 4.6a1 1 0 0 1-1.2 0L4 9.2V18h16V9.2Z"/></svg>
+            <input id="email" name="email" type="email" autocomplete="username"
+                   placeholder="voce@dgmobimagic.com.br" required />
+          </div>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Senha</span>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5Zm3 8V7a3 3 0 1 0-6 0v3h6Zm-3 4a1.5 1.5 0 0 0-.75 2.8V19a.75.75 0 0 0 1.5 0v-2.2A1.5 1.5 0 0 0 12 14Z"/></svg>
+            <input id="password" name="password" type="password" autocomplete="current-password"
+                   placeholder="••••••••" required />
+            <button type="button" id="toggle-pass" class="toggle-pass" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+            </button>
+          </div>
+        </label>
+
+        <div class="form-row">
+          <label class="check"><input type="checkbox" id="remember" /> <span>Manter conectado</span></label>
+          <a href="#" class="link" onclick="return false">Esqueci a senha</a>
+        </div>
+
+        <div id="login-error" class="alert" role="alert" hidden></div>
+
+        <button type="submit" id="btn-login" class="btn btn-primary btn-block">
+          <span class="btn-text">ENTRAR NO SISTEMA</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <!-- Etapa 2: verificação em duas etapas (Google Authenticator / TOTP) -->
+      <form id="twofa-form" class="form" novalidate hidden>
+        <div class="twofa-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5 3.8 9.4 9 11 5.2-1.6 9-6 9-11V5l-9-4Zm-1.1 13.4-2.9-2.9 1.4-1.4 1.5 1.5 3.9-3.9 1.4 1.4-5.3 5.3Z"/></svg>
+        </div>
+        <h1 class="form-title">Verificação em 2 etapas</h1>
+        <p class="form-sub">Digite o código de 6 dígitos gerado pelo <strong>Google Authenticator</strong>.</p>
+
+        <label class="field">
+          <span class="field-label">Código de verificação</span>
+          <input id="totp" inputmode="numeric" maxlength="6" class="totp-input"
+                 placeholder="000000" autocomplete="one-time-code" />
+        </label>
+
+        <div id="twofa-error" class="alert" role="alert" hidden></div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          <span class="btn-text">VALIDAR E ACESSAR</span>
+        </button>
+        <button type="button" id="btn-back" class="btn btn-ghost btn-block">Voltar</button>
+        <p class="twofa-hint" id="twofa-hint"></p>
+      </form>
+
+      <footer class="login-footer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5 3.8 9.4 9 11 5.2-1.6 9-6 9-11V5l-9-4Z"/></svg>
+        Plataforma Segura · Acesso Restrito · Protegida por Google Authenticator
+      </footer>
+    </section>
+  </main>
+
+
+  <!-- ╔══════════════════════════════════════════════════════════╗
+       ║  TELA 2 — PAINEL INTERNO                                   ║
+       ╚══════════════════════════════════════════════════════════╝ -->
+  <div id="app-screen" class="screen app-screen" hidden>
+    <div class="bg-layer app-bg" aria-hidden="true"></div>
+    <div class="bg-scrim app-scrim" aria-hidden="true"></div>
+
+    <!-- Topbar -->
+    <header class="topbar glass">
+      <div class="topbar-brand">
+        <img src="assets/logo.png" alt="DG Mobi Magic" class="topbar-logo"
+             onerror="this.style.display='none'" />
+        <div class="topbar-title">
+          <strong>DG Mobi<span class="gold">Magic</span></strong>
+          <small>Painel Corporativo · Fortaleza/CE</small>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="clock" id="clock" aria-live="off">--:--</div>
+        <div class="user-chip">
+          <div class="avatar" id="user-avatar">DP</div>
+          <div class="user-meta">
+            <strong id="user-name">Douglas Pereira</strong>
+            <small id="user-email">contato@dgmobimagic.com.br</small>
+          </div>
+        </div>
+        <button id="btn-logout" class="btn btn-logout" title="Sair">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 13v-2H7V8l-5 4 5 4v-3h9ZM20 3h-9a2 2 0 0 0-2 2v4h2V5h9v14h-9v-4H9v4a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg>
+          <span>Sair</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Boas-vindas -->
+    <section class="welcome">
+      <p class="kicker">Bem-vindo de volta</p>
+      <h2 class="welcome-title">Olá, <span id="welcome-name">Douglas</span> 👋</h2>
+      <p class="welcome-sub">Selecione um módulo para começar a gerenciar a operação de hoje.</p>
+    </section>
+
+    <!-- KPIs rápidos -->
+    <section class="kpi-strip">
+      <div class="kpi glass"><span class="kpi-ic ic-blue">R$</span><div><b>R$ 0,00</b><small>Faturamento do mês</small></div></div>
+      <div class="kpi glass"><span class="kpi-ic ic-gold">◆</span><div><b>0</b><small>Eventos no funil</small></div></div>
+      <div class="kpi glass"><span class="kpi-ic ic-blue">◈</span><div><b>0</b><small>Clientes ativos</small></div></div>
+      <div class="kpi glass"><span class="kpi-ic ic-gold">★</span><div><b>—</b><small>Satisfação média</small></div></div>
+    </section>
+
+    <!-- Cards de navegação (glassmorphism) -->
+    <section class="nav-grid" id="nav-grid">
+      <button class="nav-card glass" data-module="Dashboard">
+        <span class="nav-ic ic-blue">📊</span>
+        <span class="nav-title">Dashboard</span>
+        <span class="nav-desc">Visão geral e indicadores em tempo real</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <button class="nav-card glass" data-module="Financeiro">
+        <span class="nav-ic ic-gold">💰</span>
+        <span class="nav-title">Financeiro</span>
+        <span class="nav-desc">Caixa diário, receitas e divisão de lucros</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <button class="nav-card glass" data-module="CRM">
+        <span class="nav-ic ic-blue">🎓</span>
+        <span class="nav-title">CRM · Escolas</span>
+        <span class="nav-desc">Clientes, instituições e parceiros de turismo</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <button class="nav-card glass" data-module="Orçamentos">
+        <span class="nav-ic ic-gold">📝</span>
+        <span class="nav-title">Orçamentos</span>
+        <span class="nav-desc">Propostas e contratos prontos para PDF</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <button class="nav-card glass" data-module="Cadastros">
+        <span class="nav-ic ic-blue">🛡️</span>
+        <span class="nav-title">Cofre CPF/CNPJ</span>
+        <span class="nav-desc">Dados cadastrais seguros e mascarados</span>
+        <span class="nav-arrow">→</span>
+      </button>
+      <button class="nav-card glass" data-module="Frota">
+        <span class="nav-ic ic-gold">🚌</span>
+        <span class="nav-title">Frota & Rotas</span>
+        <span class="nav-desc">Trenzinho, vans e ônibus · agenda de viagens</span>
+        <span class="nav-arrow">→</span>
+      </button>
+    </section>
+
+    <footer class="app-footer">
+      DG Mobi Magic System · Turismo &amp; Entretenimento · Fortaleza — Ceará ·
+      <span class="gold">Trem da Alegria • Excursões • Eventos • Passeios</span>
+    </footer>
+  </div>
+
+  <!-- Toast de módulo -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
