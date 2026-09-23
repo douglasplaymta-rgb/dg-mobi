@@ -5,10 +5,11 @@ import { eq } from 'drizzle-orm';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const proposalId = Number(params.id);
+    const resolvedParams = await params;
+    const proposalId = Number(resolvedParams.id);
 
     // Apaga a proposta de forma real na base de dados
     await db.delete(quotes).where(eq(quotes.id, proposalId));
