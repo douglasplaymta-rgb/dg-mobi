@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
-import { proposals } from '@/db/schema';
+import { quotes } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function DELETE(
@@ -11,7 +11,7 @@ export async function DELETE(
     const proposalId = Number(params.id);
 
     // Apaga a proposta de forma real na base de dados
-    await db.delete(proposals).where(eq(proposals.id, proposalId));
+    await db.delete(quotes).where(eq(quotes.id, proposalId));
 
     return NextResponse.json({ success: true, message: 'Proposta excluída com sucesso!' });
   } catch (error: any) {
